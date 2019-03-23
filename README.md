@@ -1,4 +1,7 @@
 # myproject
+When i learn react, i tried something for practices. 
+
+- API SERVICE : https://www.mockapi.io ( Free )
 
 1-) npm install
 
