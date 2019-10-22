@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-function SaveItem({match}) {
+function SaveItem({ match }) {
     fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/', {
         method: 'POST',
         headers: {
@@ -17,23 +17,23 @@ function SaveItem({match}) {
 
     })
 
-    return <div>Successfully added!<br/><div><Link to="/" >Back to homepage</Link></div></div>
+    return <div>Successfully added!<br /><div><Link to="/" >Back to homepage</Link></div></div>
 }
 
 function About() {
-    return <div>NUEVO YAZILIM ÇÖZÜMLERİ A.Ş. için Ali Yaman tarafından hazırlanmıştır.</div>
+    return <div> <a href="https://github.com/AliYmn/ReactProject">Created By Ali Yaman</a></div>
 }
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             data: [],
-            name:"",
-            author:"",
-            publisher:"",
-            id:null,
-            value:null,
-            detailData:[],
+            name: "",
+            author: "",
+            publisher: "",
+            id: null,
+            value: null,
+            detailData: [],
             input_name: "",
             input_author: "",
             input_publisher: "",
@@ -52,33 +52,33 @@ class App extends React.Component {
         const value = target.value;
         const name_x = target.name;
 
-        this.setState({[name_x]: value});
+        this.setState({ [name_x]: value });
     }
 
-    updateSearch(event){
-        this.setState({id:event.target.value.substr(0,20)});
-        this.setState({name:event.target.value.substr(0,20)});
-        this.setState({author:event.target.value.substr(0,20)});
-        this.setState({publisher:event.target.value.substr(0,20)});
+    updateSearch(event) {
+        this.setState({ id: event.target.value.substr(0, 20) });
+        this.setState({ name: event.target.value.substr(0, 20) });
+        this.setState({ author: event.target.value.substr(0, 20) });
+        this.setState({ publisher: event.target.value.substr(0, 20) });
     }
 
 
 
     deleteItem(event) {
-        fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/'+event.target.id,{
-            method:'DELETE'
+        fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/' + event.target.id, {
+            method: 'DELETE'
         })
-        alert(event.target.id+". ID deleted.");
+        alert(event.target.id + ". ID deleted.");
     }
 
 
 
-    homePage(){
+    homePage() {
 
         fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/')
             .then(response => response.json())
             .then(data => {
-                this.setState({data: data })
+                this.setState({ data: data })
             })
 
 
@@ -91,10 +91,10 @@ class App extends React.Component {
         return <ul>
 
             <div className="title">
-                <input placeholder="ID Search" type="text" className="search" onChange={this.updateSearch.bind(this)}/>
-                <input placeholder="Book Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)}/>
-                <input placeholder="Author Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)}/>
-                <input placeholder="Publisher Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)}/>
+                <input placeholder="ID Search" type="text" className="search" onChange={this.updateSearch.bind(this)} />
+                <input placeholder="Book Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)} />
+                <input placeholder="Author Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)} />
+                <input placeholder="Publisher Name Search" type="text" className="search" onChange={this.updateSearch.bind(this)} />
             </div>
 
             <li className='title'>
@@ -106,13 +106,13 @@ class App extends React.Component {
                 <span>Delete</span>
             </li>
 
-            { filteredData.map(item => {
+            {filteredData.map(item => {
                 return <li key={item.id} className='item'>
                     <span>{item.id}</span>
                     <span>{item.name}</span>
                     <span>{item.author}</span>
                     <span>{item.publisher}</span>
-                    <span><Link to={"detail/"+item.id} >Detail</Link></span>
+                    <span><Link to={"detail/" + item.id} >Detail</Link></span>
                     <span><Link id={item.id} onClick={this.deleteItem} >Delete</Link></span>
 
                 </li>
@@ -126,13 +126,13 @@ class App extends React.Component {
 
 
 
-    detailItem(){
+    detailItem() {
 
-        if(window.location.href.split('/')[3] !== "create"){
-            fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/'+window.location.href.split('/')[4])
+        if (window.location.href.split('/')[3] !== "create") {
+            fetch('https://5c9017798447f30014cb83b1.mockapi.io/book/v1/' + window.location.href.split('/')[4])
                 .then(response => response.json())
                 .then(detailData => {
-                    this.setState({detailData: detailData })
+                    this.setState({ detailData: detailData })
                 })
                 .catch(err => console.error(this.props.url, err.toString()))
 
@@ -151,9 +151,9 @@ class App extends React.Component {
                     <span>Detail</span>
                 </li>
 
-                { filteredData.map(item => {
-                    return <li key={item.id } className='item'>
-                        <span>{item.id } </span>
+                {filteredData.map(item => {
+                    return <li key={item.id} className='item'>
+                        <span>{item.id} </span>
                         <span>{item.name}</span>
                         <span>{item.author}</span>
                         <span>{item.publisher}</span>
@@ -165,63 +165,63 @@ class App extends React.Component {
                 <div><Link to="/" >Back to homepage</Link></div>
             </ul>;
         }
-        else{
+        else {
             return null
         }
 
     }
 
-    createItem(){
+    createItem() {
         return (
 
             <form action="/">
                 <table>
-                <label>
-                    Books Name :
-                    <br/>
-                    <input
-                        placeholder="Book Name"
-                        name="input_name"
-                        type="text"
-                        value={this.state.input_name}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br/>
-                <label>
-                    Author Name :
-                    <br/>
-                    <input
-                        placeholder="Author Name"
-                        name="input_author"
-                        type="text"
-                        value={this.state.input_author}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br/>
-                <label>
-                    Publisher Name :
-                    <br/>
-                    <input
-                        placeholder="Publisher Name"
-                        name="input_publisher"
-                        type="text"
-                        value={this.state.input_publisher}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br/>
-                <label>
-                    Detail :
-                    <br/>
-                    <input
-                        placeholder="Detail"
-                        name="input_detail"
-                        type="text"
-                        value={this.state.input_detail}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br/>
-                <Link to={"/save/"+this.state.input_name+"/"+this.state.input_author+"/"+
-                this.state.input_publisher+"/"+this.state.input_detail} >Send!</Link>
+                    <label>
+                        Books Name :
+                    <br />
+                        <input
+                            placeholder="Book Name"
+                            name="input_name"
+                            type="text"
+                            value={this.state.input_name}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Author Name :
+                    <br />
+                        <input
+                            placeholder="Author Name"
+                            name="input_author"
+                            type="text"
+                            value={this.state.input_author}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Publisher Name :
+                    <br />
+                        <input
+                            placeholder="Publisher Name"
+                            name="input_publisher"
+                            type="text"
+                            value={this.state.input_publisher}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Detail :
+                    <br />
+                        <input
+                            placeholder="Detail"
+                            name="input_detail"
+                            type="text"
+                            value={this.state.input_detail}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <Link to={"/save/" + this.state.input_name + "/" + this.state.input_author + "/" +
+                        this.state.input_publisher + "/" + this.state.input_detail} >Send!</Link>
                 </table>
             </form>
 
@@ -233,10 +233,10 @@ class App extends React.Component {
 
 
     shouldComponentUpdate(nextProp, nextState) {
-        if(window.location.href.split('/')[3] === "save" ){
+        if (window.location.href.split('/')[3] === "save") {
             return false
         }
-        else{
+        else {
             return true
         }
 
@@ -249,16 +249,16 @@ class App extends React.Component {
             <Router>
 
                 <ul className="menu">
-                <li><Link to="/" activeClassName="active">Home</Link></li>
-                <li><Link to="/create" activeClassName="active">Create</Link></li>
-                <li><Link to="/about" activeClassName="active">About</Link></li>
+                    <li><Link to="/" activeClassName="active">Home</Link></li>
+                    <li><Link to="/create" activeClassName="active">Create</Link></li>
+                    <li><Link to="/about" activeClassName="active">About</Link></li>
                 </ul>
 
-                <Route exact path="/" render={() => this.homePage()}/>
-                <Route path="/detail/:id" render={() => this.detailItem()}/>
-                <Route path="/create" render={() => this.createItem()}/>
-                <Route path="/about" component={About}/>
-                <Route path="/save/:name/:author/:publisher/:detail" component={SaveItem}/>
+                <Route exact path="/" render={() => this.homePage()} />
+                <Route path="/detail/:id" render={() => this.detailItem()} />
+                <Route path="/create" render={() => this.createItem()} />
+                <Route path="/about" component={About} />
+                <Route path="/save/:name/:author/:publisher/:detail" component={SaveItem} />
             </Router>
 
         </div>;
